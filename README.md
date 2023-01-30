@@ -1,3 +1,3 @@
 # lm
 
-Utility library to succinctly create element in JavaScript
+Utility library to succinctly create elements in JavaScript
