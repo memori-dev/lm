@@ -3,13 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "lm.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "author": "",
   "license": "ISC",
   "dependencies": {
     "jss": "^10.9.2",
-    "jss-preset-default": "^10.9.2"
+    "jss-preset-default": "^10.9.2",
+    "typescript": "^4.9.5"
   }
 }
