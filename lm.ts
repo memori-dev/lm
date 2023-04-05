@@ -2,34 +2,50 @@ import {Classes, default as jss} from "jss"
 import {default as preset} from "jss-preset-default"
 
 type inputOutput = {
-    label: HTMLLabelElement
     input: HTMLInputElement
+    label: HTMLLabelElement
 }
 
+interface ElementMap {
+    "a": HTMLAnchorElement
+    "button": HTMLButtonElement
+    "div": HTMLDivElement
+    "h1": HTMLHeadingElement
+    "h2": HTMLHeadingElement
+    "h3": HTMLHeadingElement
+    "input": HTMLInputElement
+    "label": HTMLLabelElement
+    "nav": HTMLElement;
+    "p": HTMLParagraphElement
+    "span": HTMLSpanElement
+}
+
+type Tag = keyof ElementMap
+
 export const lm = {
-    append(parent: HTMLElement, e: HTMLElement): HTMLElement {
+    append<T extends Tag>(parent: HTMLElement, e: ElementMap[T]): ElementMap[T] {
         return parent.appendChild(e)
     },
 
-    new(tag: string, ...classes: string[]): HTMLElement {
+    new<T extends Tag>(tag: T, ...classes: string[]): ElementMap[T] {
         const e = document.createElement(tag)
         if (classes.length > 0) e.classList.add(...classes)
         return e
     },
 
-    newAttrs(tag: string, attrs: { [key: string | symbol]: any }, ...classes: string[]): HTMLElement {
+    newAttrs<T extends Tag>(tag: T, attrs: { [key: string | symbol]: any }, ...classes: string[]): ElementMap[T] {
         const e = document.createElement(tag)
         Object.assign(e, attrs)
         if (classes.length > 0) e.classList.add(...classes)
         return e
     },
 
-    appendNew(parent: HTMLElement, tag: string, ...classes: string[]): HTMLElement {
+    appendNew<T extends Tag>(parent: HTMLElement, tag: T, ...classes: string[]): ElementMap[T] {
         const e = lm.new(tag, ...classes)
         return lm.append(parent, e)
     },
 
-    appendNewAttrs(parent: HTMLElement, tag: string, attrs: { [key: string | symbol]: any }, ...classes: string[]): HTMLElement {
+    appendNewAttrs<T extends Tag>(parent: HTMLElement, tag: T, attrs: { [key: string | symbol]: any }, ...classes: string[]): ElementMap[T] {
         const e = lm.newAttrs(tag, attrs, ...classes)
         return lm.append(parent, e)
     },
@@ -38,29 +54,32 @@ export const lm = {
         // Closure parser
         const parser = new DOMParser();
 
-        return function (data: string, ...classes: string[]): HTMLElement {
-            const e = parser.parseFromString(data, "image/svg+xml").documentElement
+        return function (data: string, ...classes: string[]): SVGSVGElement {
+            // TODO testing
+            const e = parser.parseFromString(data, "image/svg+xml").documentElement as unknown as SVGSVGElement
             if (classes.length > 0) e.classList.add(...classes)
             return e
         }
     })(),
 
-    appendNewSvg(parent: HTMLElement, data: string, ...classes: string[]): HTMLElement {
+    appendNewSvg(parent: HTMLElement, data: string, ...classes: string[]): SVGSVGElement {
         const e = lm.newSvg(data, ...classes)
-        return lm.append(parent, e)
+        parent.appendChild(e)
+        return e
     },
 
     newInput(type: string, id: string): inputOutput {
-        const label = lm.new("label") as HTMLLabelElement
+        const label = lm.new("label")
         label.htmlFor = id
 
-        const input = lm.append(label, lm.new("input")) as HTMLInputElement
+        const input = lm.new("input")
+        lm.append(label, input)
         input.id = id
         input.type = type
 
         return {
-            label,
             input,
+            label,
         }
     },
 
