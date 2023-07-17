@@ -1,7 +1,4 @@
-import {Classes, default as jss} from "jss"
-import {default as preset} from "jss-preset-default"
-
-type inputOutput = {
+type InputOutput = {
     input: HTMLInputElement
     label: HTMLLabelElement
 }
@@ -13,6 +10,7 @@ interface ElementMap {
     "h1": HTMLHeadingElement
     "h2": HTMLHeadingElement
     "h3": HTMLHeadingElement
+    "img": HTMLImageElement
     "input": HTMLInputElement
     "label": HTMLLabelElement
     "nav": HTMLElement;
@@ -68,7 +66,7 @@ export const lm = {
         return e
     },
 
-    newInput(type: string, id: string): inputOutput {
+    newInput(type: string, id: string): InputOutput {
         const label = lm.new("label")
         label.htmlFor = id
 
@@ -83,18 +81,10 @@ export const lm = {
         }
     },
 
-    appendNewInput(parent: HTMLElement, type: string, id: string): inputOutput {
+    appendNewInput(parent: HTMLElement, type: string, id: string): InputOutput {
         const input = lm.newInput(type, id)
         lm.append(parent, input.label)
         lm.append(parent, input.input)
         return input
     },
-
-    createStyleSheet: (function () {
-        jss.setup(preset())
-        return function (styles: { [key: string]: any }): Classes {
-            const {classes} = jss.createStyleSheet(styles).attach()
-            return classes
-        }
-    })(),
 }
