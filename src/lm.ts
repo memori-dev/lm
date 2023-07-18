@@ -1,4 +1,4 @@
-type InputOutput = {
+export type LabeledInput = {
     input: HTMLInputElement
     label: HTMLLabelElement
 }
@@ -7,13 +7,15 @@ interface ElementMap {
     "a": HTMLAnchorElement
     "button": HTMLButtonElement
     "div": HTMLDivElement
+    "form": HTMLFormElement
     "h1": HTMLHeadingElement
     "h2": HTMLHeadingElement
     "h3": HTMLHeadingElement
     "img": HTMLImageElement
     "input": HTMLInputElement
     "label": HTMLLabelElement
-    "nav": HTMLElement;
+    "main": HTMLElement
+    "nav": HTMLElement
     "p": HTMLParagraphElement
     "span": HTMLSpanElement
 }
@@ -66,12 +68,11 @@ export const lm = {
         return e
     },
 
-    newInput(type: string, id: string): InputOutput {
-        const label = lm.new("label")
+    newInput(type: string, id: string): LabeledInput {
+        const label = lm.new("label") as HTMLLabelElement
         label.htmlFor = id
 
-        const input = lm.new("input")
-        lm.append(label, input)
+        const input = lm.appendNew(label, "input") as HTMLInputElement
         input.id = id
         input.type = type
 
@@ -81,7 +82,7 @@ export const lm = {
         }
     },
 
-    appendNewInput(parent: HTMLElement, type: string, id: string): InputOutput {
+    appendNewInput(parent: HTMLElement, type: string, id: string): LabeledInput {
         const input = lm.newInput(type, id)
         lm.append(parent, input.label)
         lm.append(parent, input.input)

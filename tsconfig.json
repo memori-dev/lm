@@ -1,18 +1,32 @@
 {
   "compilerOptions": {
-    "target": "ES2016",
-    "module": "ES2016",
-    "strict": true,
-    "strictNullChecks": true,
-    "noImplicitAny": true,
-    "noEmitOnError": true,
-    "watch": true,
-    "sourceMap": true,
-    "outDir": "build",
+    // Versioning
+    "target": "ES2020",
+    "module": "ES2020",
     "moduleResolution": "Node",
+    "esModuleInterop": true,
     "lib": [
       "dom",
-      "ES2016"
-    ]
-  }
+      "ES2020"
+    ],
+    // Checks
+    "strict": true,
+    "strictNullChecks": true,
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noUncheckedIndexedAccess": true,
+    // Output
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "./dist"
+  },
+  "include": [
+    "./src"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
