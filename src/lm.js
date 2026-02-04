@@ -12,6 +12,7 @@ const validTags = [
 	"nav",
 	"p",
 	"span",
+	"table", "th", "tr",
 ];
 
 function validateTag(tag) {
@@ -83,12 +84,6 @@ export default {
 			label,
 		}
 	},
-
-	//appendNewInput: function(parent, type, id, tag, classes, attrs) {
-		//let e = this.new(tag, classes, attrs);
-		//parent.appendChild(e);
-		//return e;
-	//},
 	
 	getById: function(id) {
 		return document.getElementById(id);
