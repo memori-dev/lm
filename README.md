@@ -1,3 +1,2 @@
 # lm
-
-Utility library to succinctly create elements in JavaScript
+convenience functions for creating elements
