@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/memori-dev/lm#readme",
   "type": "module",
-  "main": "./dist/lm.js",
+  "main": "./src/lm.js",
   "types": "./dist/lm.d.ts",
   "files": [
     "./dist"
